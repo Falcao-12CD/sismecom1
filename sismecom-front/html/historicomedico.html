@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="copyright" content="MACode ID, https://macodeid.com/">
+  <title>SISMECOM - Histórico Médico</title>
+  <link rel="stylesheet" href="../assets/css/maicons.css">
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/vendor/owl-carousel/css/owl.carousel.css">
+  <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+    }
+    footer.page-footer {
+      margin-top: auto;
+    }
+    .user-info {
+      margin-left: auto;
+    }
+    .details {
+      display: inline;
+    }
+    .edit-input {
+      display: none;
+      width: 100%;
+    }
+    .arrow {
+      margin-right: 10px;
+    }
+    .edit-buttons {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back to top button -->
+  <div class="back-to-top"></div>
+
+  <header>
+    <div class="topbar">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 text-sm">
+            <div class="site-info">
+              <a href="#"><span class="mai-call text-primary"></span> +55 (27) 94455 6789</a>
+              <span class="divider">|</span>
+              <a href="#"><span class="mai-mail text-primary"></span> atendimento@sismecom.com.br</a>
+            </div>
+          </div>
+          <div class="col-sm-4 text-right text-sm">
+            
+            <!-- Adicione o botão de logoff aqui -->
+            <button class="btn btn-danger" onclick="realizarLogoff()">Logoff</button>
+          </div>
+        </div> <!-- .row -->
+      </div> <!-- .container -->
+    </div> <!-- .topbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="text-primary">Sis</span>Mecom</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupport">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="saibamais.html">Sobre Nós</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="especialistas.html">Especialistas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Notícias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Fale Connosco</a>
+            </li>
+          </ul>
+        </div> <!-- .navbar-collapse -->
+      </div> <!-- .container -->
+    </nav>
+  </header>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Histórico Médico</h2>
+        
+        <!-- Lista de Consultas -->
+        <ul id="historico-list" class="list-group">
+          <!-- Os registros das consultas serão adicionados dinamicamente aqui -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão "Exames" na parte inferior centralizada -->
+  <div class="container text-center mt-3">
+    <button class="btn btn-primary" onclick="confExame()">Exames</button>
+  </div>
+
+  <div class="mt-4"></div>
+  <div class="mb-4"></div>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <p id="copyright">Copyright &copy; 2023 <a href="https://ficticio.com/" target="_blank">Desenvolvido por Ficticio</a>. Todos os Direitos Reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function addConsulta(data, medico, especialidade, detalhes, paciente, idConsulta) {
+      var historicoList = document.getElementById("historico-list");
+
+      var listItem = document.createElement("li");
+      listItem.className = "list-group-item";
+
+      var arrow = document.createElement("span");
+      arrow.className = "arrow";
+      arrow.innerHTML = "&#9654;"; // Seta para a direita
+
+      listItem.appendChild(arrow);
+
+      listItem.innerHTML += `<span id="id_consulta">${idConsulta}</span> | <strong>Paciente:</strong> ${paciente} | 
+                             <strong>Data:</strong> ${data} | <strong>Médico:</strong> ${medico} | 
+                             <strong>Especialidade:</strong> ${especialidade}<br>
+                             <strong>Detalhes:</strong> 
+                             <span class="details">${detalhes}</span>
+                             <input type="text" class="edit-input form-control" value="${detalhes}">
+                             <div class="edit-buttons">
+                               <button class="btn btn-primary" onclick="editarDetalhes('${idConsulta}')">Editar</button>
+                               <button class="btn btn-success ml-2" onclick="salvarEdicao('${idConsulta}')">Salvar</button>
+                             </div>`;
+
+      historicoList.appendChild(listItem);
+    }
+
+    function editarDetalhes(idConsulta) {
+      var detailsElement = document.querySelector(`#historico-list li:contains(${idConsulta}) .details`);
+      var editInput = document.querySelector(`#historico-list li:contains(${idConsulta}) .edit-input`);
+      
+      detailsElement.style.display = "none";
+      editInput.style.display = "block";
+      editInput.focus();
+    }
+
+    function salvarEdicao(idConsulta) {
+      var detailsElement = document.querySelector(`#historico-list li:contains(${idConsulta}) .details`);
+      var editInput = document.querySelector(`#historico-list li:contains(${idConsulta}) .edit-input`);
+      
+      var editedDetails = editInput.value;
+      detailsElement.innerText = editedDetails;
+
+      // Implemente a lógica real para salvar as alterações no banco de dados
+      console.log(`Salvando detalhes editados para a consulta ${idConsulta}: ${editedDetails}`);
+
+      detailsElement.style.display = "inline";
+      editInput.style.display = "none";
+    }
+
+    // Adiciona consultas simuladas
+    addConsulta("2023-01-01", "Dr. Silva", "Cardiologia", "Pressão arterial normal", "JoaoPaciente", "1");
+    addConsulta("2023-02-15", "Dra. Oliveira", "Dermatologia", "Prescrição de creme para dermatite", "MariaPaciente", "2");
+    
+    function realizarLogoff() {
+      // Implemente a lógica real para realizar o logoff (ex: redirecionar para a página de login)
+      console.log("Realizando logoff...");
+      // Exemplo: window.location.href = "pagina_login.php";
+    }
+
+    function confExame() {
+      window.location.href = "exames.php";
+    }
+  </script>
+
+  <script src="../assets/js/jquery-3.5.1.min.js"></script>
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

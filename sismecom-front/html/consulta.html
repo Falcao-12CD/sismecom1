@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="copyright" content="MACode ID, https://macodeid.com/">
+
+  <title>SISMECOM - Seu site de consultas e exames médicos</title>
+
+  <link rel="stylesheet" href="../assets/css/maicons.css">
+
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+
+  <link rel="stylesheet" href="../assets/vendor/owl-carousel/css/owl.carousel.css">
+
+  <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
+
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Garante que o corpo ocupa pelo menos 100% da altura da visualização */
+    }
+
+    main {
+      flex: 1; /* Faz com que o conteúdo principal (main) ocupe o restante da altura disponível */
+    }
+
+    footer.page-footer {
+      margin-top: auto; /* Empurra o rodapé para a parte inferior do contêiner pai */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back to top button -->
+  <div class="back-to-top"></div>
+
+  <header>
+    <div class="topbar">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 text-sm">
+            <div class="site-info">
+              <a href="#"><span class="mai-call text-primary"></span> +55 (27) 94455 6789</a>
+              <span class="divider">|</span>
+              <a href="#"><span class="mai-mail text-primary"></span> atendimento@sismecom.com.br</a>
+            </div>
+          </div>
+          <div class="col-sm-4 text-right text-sm">
+            <button class="btn btn-danger" onclick="realizarLogoff()">Logoff</button>
+          </div>
+        </div> <!-- .row -->
+      </div> <!-- .container -->
+    </div> <!-- .topbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.php"><span class="text-primary">Sis</span>Mecom</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupport">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="saibamais.html">Sobre Nós</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="especialistas.html">Especialistas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Notícias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Fale Connosco</a>
+            </li>
+          </ul>
+        </div> <!-- .navbar-collapse -->
+      </div> <!-- .container -->
+    </nav>
+  </header>   
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6 mx-auto text-center">
+        <h2>Consultas</h2>
+        <hr/>
+        <div class="form-group">
+          <label for="cpf">Insira o CPF do cliente:</label>
+          <input type="text" class="form-control" id="cpf" name="cpf" required>
+        </div>
+        <div id="pacienteInfo" class="mt-4"></div>
+        <button type="button" class="btn btn-primary" onclick="verificarPaciente()">Verificar Paciente</button>
+
+          <hr/>
+        
+            <p>Escolha o horário, dia, médico e especialidade</p>
+            <form id="consultaForm" action="processa_consulta.php" method="post">
+                <div class="form-group row">
+                    <label for="dataConsulta" class="col-md-2 col-form-label">Data da Consulta:</label>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" id="dataConsulta" name="dataConsulta" required="required">
+                    </div>
+                    <label for="horarioConsulta" class="col-md-2 col-form-label">Horário Consulta:</label>
+                    <div class="col-md-4">
+                        <input type="time" class="form-control" id="horarioConsulta" name="horarioConsulta" required="required">
+                    </div>
+                </div>
+
+          <div class="form-group">
+            <label for="especialidade">Especialidade:</label>
+            <select class="form-control" id="especialidade" name="especialidade" onchange="showMedicoInput()">
+              <option value="">Selecione uma especialidade</option>
+              <option value="Acupuntura" data-preco="">Acupuntura</option>
+              <option value="Alergia e imunologia" data-preco="">Alergia e imunologia</option>
+                <option value="Anestesiologia" data-preco="">Anestesiologia</option>
+                <option value="Angiologia" data-preco="">Angiologia</option>
+                <option value="Cardiologia" data-preco="">Cardiologia</option>
+                <option value="Clínica médica" data-preco="">Clínica médica</option>
+                <option value="Coloproctologia" data-preco="">Coloproctologia</option>
+                <option value="Dermatologia" data-preco="">Dermatologia</option>
+                <option value="Endocrinologia" data-preco="">Endocrinologia</option>
+                <option value="Endoscopia" data-preco="">Endoscopia</option>
+                <option value="Gastroenterologia" data-preco="">Gastroenterologia</option>
+                <option value="Geriatria" data-preco="">Geriatria</option>
+                <option value="Ginecologia e obstetrícia" data-preco="">Ginecologia e obstetrícia</option>
+                <option value="Hematologia e hemoterapia" data-preco="">Hematologia e hemoterapia</option>
+                <option value="Homeopatia" data-preco="">Homeopatia</option>
+                <option value="Infectologia" data-preco="">Infectologia</option>
+                <option value="Mastologia" data-preco="">Mastologia</option>
+                <option value="Nefrologia" data-preco="">Nefrologia</option>
+                <option value="Neurologia" data-preco="">Neurologia</option>
+                <option value="Nutrologia" data-preco="">Nutrologia</option>
+                <option value="Oftalmologia" data-preco="">Oftalmologia</option>
+                <option value="Oncologia" data-preco="">Oncologia</option>
+                <option value="Ortopedia e traumatologia" data-preco="">Ortopedia e traumatologia</option>
+                <option value="Otorrinolaringologia" data-preco="">Otorrinolaringologia</option>
+                <option value="Patologia" data-preco="">Patologia</option>
+                <option value="Pediatria" data-preco="">Pediatria</option>
+                <option value="Pneumologia" data-preco="">Pneumologia</option>
+                <option value="Psiquiatria" data-preco="">Psiquiatria</option>
+                <option value="Radiologia" data-preco="">Radiologia</option>
+                <option value="Radioterapia" data-preco="">Radioterapia</option>
+                <option value="Reumatologia" data-preco="">Reumatologia</option>
+                <option value="Urologia" data-preco="">Urologia</option>
+                <option value="Outros" data-preco="">Outros</option>
+              <!-- Adicione outras opções de especialidade conforme necessário -->
+            </select>
+          </div>
+
+          <div class="form-group" id="medicoInput" style="display: none;">
+            <label for="nomeMedico">Nome do Médico:</label>
+            <input type="text" class="form-control" id="nomeMedico" name="nomeMedico">
+          </div>
+
+          <!-- Exibição do preço da especialidade selecionada -->
+          <div class="form-group">
+            <label for="precoEspecialidade">Preço da Especialidade:</label>
+            <input type="text" class="form-control" id="precoEspecialidade" name="precoEspecialidade" readonly>
+          </div>
+
+
+          <div class="form-group">
+            <label for="tipoPagamento">Escolha o seu tipo de pagamento:</label>
+            <select class="form-control" id="tipoPagamento" name="tipoPagamento">
+              <option value="dinheiro">Dinheiro</option>
+              <option value="cartao_credito">Cartão de Crédito</option>
+              <option value="cartao_debito">Cartão de Débito</option>
+              <option value="pix">PIX</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pagamentoEfetuado">Pagamento efetuado:</label>
+            <label class="checkbox-container">
+              <input type="checkbox" id="pagamentoEfetuado" name="pagamentoEfetuado">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-success" onclick="redirecionarParaConsulta()">Agendar Consulta</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="mt-4"></div>
+  <div class="mb-4"></div>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <p id="copyright">Copyright &copy; 2023 <a href="https://ficticio.com/" target="_blank">Desenvolvido por Ficticio</a>. Todos os Direitos Reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/jquery-3.5.1.min.js"></script>
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function agendarConsulta() {
+      // Verifica se a opção de pagamento foi marcada
+      var pagamentoEfetuado = document.getElementById("pagamentoEfetuado").checked;
+
+      if (pagamentoEfetuado) {
+        // Adiciona lógica para atualizar o banco de dados com pagamento efetuado
+        // Isso é uma simulação, substitua com chamadas reais ao seu backend
+        var tipoPagamento = document.getElementById("tipoPagamento").value;
+
+        // Aqui você deve adicionar a lógica para atualizar o banco de dados
+        // Exemplo: atualizarBancoDeDados(pagamentoEfetuado, tipoPagamento);
+
+        // Simulação de redirecionamento para a página de pagamento
+        window.location.href = "pagamento.html";
+      } else {
+        // A opção de pagamento não foi marcada, não faz nada
+        console.log("Opção de pagamento não marcada. Nada será agendado.");
+      }
+    }
+    function showMedicoInput() {
+      var especialidadeSelect = document.getElementById("especialidade");
+      var precoEspecialidadeInput = document.getElementById("precoEspecialidade");
+      var medicoInput = document.getElementById("medicoInput");
+
+      // Obtém o valor da especialidade selecionada
+      var especialidadeSelecionada = especialidadeSelect.value;
+
+      // Gera um valor aleatório entre 30 e 70 reais para a especialidade selecionada
+      var precoAleatorio = (Math.random() * (70 - 30) + 30).toFixed(2);
+
+      // Define o preço da especialidade no input correspondente
+      if (especialidadeSelecionada !== "") {
+        precoEspecialidadeInput.value = "R$ " + precoAleatorio;
+      } else {
+        precoEspecialidadeInput.value = ""; // Limpa o valor se nenhuma especialidade for selecionada
+      }
+
+      if (especialidade !== "") {
+        // Aqui você pode adicionar a lógica para buscar o nome do médico com base na especialidade
+        // Se o horário e dia estiverem no banco de dados, defina o valor como "Indisponível"
+        // Exemplo: medicoInput.value = obterNomeDoMedico(especialidade);
+        medicoInput.style.display = "block";
+      } else {
+        medicoInput.style.display = "none";
+      }
+    }
+    function redirecionarParaConsulta() {
+      // Adiciona o redirecionamento para a página de pagamento
+      window.location.href = "consulta.php?cadastro=sucesso";
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+    var dataConsultaInput = document.getElementById('dataConsulta');
+    var horarioConsultaInput = document.getElementById('horarioConsulta');
+
+    dataConsultaInput.addEventListener('change', function () {
+        // Atualiza o valor do campo de hora para o formato padrão
+        // ou você pode manter o valor existente se houver algum valor lá
+        if (!horarioConsultaInput.value) {
+            var dataEscolhida = new Date(dataConsultaInput.value);
+            var horaPadrao = '12:00'; // ou qualquer valor de hora padrão desejado
+            var formattedHoraPadrao = horaPadrao.padStart(5, '0'); // garante que o formato seja "hh:mm"
+
+            horarioConsultaInput.value = formattedHoraPadrao;
+        }
+    });
+});
+
+    // Adiciona a lógica para recuperar o nome do usuário do lado do servidor
+    // Esta é uma simulação, você precisa implementar essa lógica no seu servidor
+    // e substituir a chamada assíncrona com o resultado real do nome do usuário
+    document.addEventListener('DOMContentLoaded', function () {
+      var loggedInUserId = 1; // Substitua pelo ID do usuário logado
+      // Faz uma chamada assíncrona para obter o nome do usuário pelo ID
+      // Esta parte deve ser substituída por uma chamada ao seu backend
+      fetch('seu-backend/obter_nome_usuario.php?id=' + loggedInUserId)
+        .then(response => response.json())
+        .then(data => {
+          // Atualiza o nome do usuário no elemento HTML
+          document.getElementById("user-info").textContent = "Bem-vindo, " + data.name + "!";
+        })
+        .catch(error => console.error('Erro ao recuperar o nome do usuário:', error));
+    });
+
+    function verificarPaciente() {
+    // Obter o valor do CPF inserido
+    var cpf = document.getElementById("cpf").value;
+
+    // Adicionar lógica para verificar o CPF no backend
+    // Substitua esta parte com chamadas reais ao seu backend
+    // Exemplo de chamada ao backend (simulação):
+    fetch('seu-backend/verificar_paciente.php?cpf=' + cpf)
+      .then(response => response.json())
+      .then(data => {
+        if (data.encontrado) {
+          // Paciente encontrado, exibir informações
+          exibirInformacoesPaciente(data.nome, data.id_paciente);
+        } else {
+          // Paciente não encontrado, redirecionar para a página register.php
+          window.location.href = "register.php";
+        }
+      })
+      .catch(error => console.error('Erro ao verificar paciente:', error));
+  }
+
+  function exibirInformacoesPaciente(nome, idPaciente) {
+    // Exibir informações do paciente na página
+    var nomePacienteInput = document.createElement("input");
+    nomePacienteInput.type = "text";
+    nomePacienteInput.className = "form-control";
+    nomePacienteInput.value = nome;
+    nomePacienteInput.readOnly = true;
+
+    var idPacienteInput = document.createElement("input");
+    idPacienteInput.type = "text";
+    idPacienteInput.className = "form-control";
+    idPacienteInput.value = idPaciente;
+    idPacienteInput.readOnly = true;
+
+    // Adicionar os novos inputs à página
+    var pacienteInfoDiv = document.getElementById("pacienteInfo");
+    pacienteInfoDiv.innerHTML = ""; // Limpar conteúdo anterior
+    pacienteInfoDiv.appendChild(document.createTextNode("Informações do Paciente:"));
+    pacienteInfoDiv.appendChild(document.createElement("br"));
+    pacienteInfoDiv.appendChild(document.createTextNode("Nome do Paciente:"));
+    pacienteInfoDiv.appendChild(nomePacienteInput);
+    pacienteInfoDiv.appendChild(document.createElement("br"));
+    pacienteInfoDiv.appendChild(document.createTextNode("ID do Paciente:"));
+    pacienteInfoDiv.appendChild(idPacienteInput);
+  }
+  </script>
+  
+</body>
+</html>
